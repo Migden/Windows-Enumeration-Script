@@ -13,6 +13,23 @@
 
 
 # Start of Globals
+
+$global:ProgramBanner = @"
+  _      ___      ___                    
+ | | /| / (_)__  / _ \___ _    _____     
+ | |/ |/ / / _ \/ // / _ \ |/|/ / _ \    
+ |__/|__/_/_//_/____/\___/__,__/_//_/    
+ ____________________________________    
+/___/___/___/___/___/___/___/___/___/    
+
+    Author: Migwe101
+    Script for use in authorized systems only
+    Author is not responsible for any damage caused
+    by missue
+
+
+"@
+
 $global:PathsToSearch = @(
 	'C:\Users'
 	'C:\inetpub'
@@ -182,7 +199,9 @@ function WinEnumMain {
         "Windows System Version " = { WindowsSysInfo }
         "Installed Security Patches" = { GetSecurityPatches }
 
-	} 
+	}
+    Write-Host $global:ProgramBanner -ForegroundColor DarkBlue
+    Write-Host "====================================================================" -ForegroundColor DarkGreen
 	# Start of the results
 	foreach ($key in $EnumerationItemsHash.Keys) {
 		PrintLineStart($key)
@@ -190,6 +209,7 @@ function WinEnumMain {
         Write-Output $block | Format-Table -AutoSize
 		PrintLineFinish($key)
 		}
+    Write-Host "====================================================================" -ForegroundColor DarkGreen
 	}
 
 WinEnumMain
