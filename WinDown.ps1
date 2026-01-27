@@ -138,7 +138,7 @@ function GetNetworkAdapters {
 }
 
 function InstalledApplications {
-	$results = try { Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | Select-Object InstallLocation,DisplayName } catch {Write-Error "Error Occurred When Executing command"}
+	$results = try { Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | Select-Object displayname,installlocation } catch {Write-Error "Error Occurred When Executing command"}
 	return $results 
 }
 
