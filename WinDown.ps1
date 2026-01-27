@@ -33,6 +33,8 @@ $global:ProgramBanner = @"
 $global:PathsToSearch = @(
 	'C:\Users'
 	'C:\inetpub'
+	'C:\temp'
+	'C:\xampp'
 )
 # End of Globals
 
@@ -115,7 +117,7 @@ function LocalUser {
 
 
 function InterestingFiles {
-	$results = try { Get-ChildItem -Path $global:PathsToSearch -Include *.kdbx, *.txt, *.ini -File -Recurse -ErrorAction SilentlyContinue | Select-string -Pattern 'password','passwd','pwd' -SimpleMatch | Select-Object Path,Line } catch {Write-Error "Error Occurred When Executing command"}
+	$results = try { Get-ChildItem -Path C:\ -Include *.kdbx, *.txt, *.ini, toml-3.8.3.jar, *.log, local.txt, proof.txt, flag.txt, *.rsa -File -Recurse -ErrorAction SilentlyContinue | Select-string -Pattern 'password','passwd','pwd', 'pass', 'NTLM', 'Ticket' -SimpleMatch | Select-Object Path,Line } catch {Write-Error "Error Occurred When Executing command"}
 	return $results
 	}
 
@@ -154,7 +156,8 @@ function GetPowershellConsoleHistory {
 
 function GetServiceBinaries {
     $results = try { Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'} } catch {Write-Error "Error Occurred When Executing command"}
-    PrintLineStart("Potentially Vulnreable Service Binaries (Path Hijacking)")
+    # This Functionality Does not work, Need to fix later
+	PrintLineStart("Potentially Vulnreable Service Binaries (Path Hijacking)")
     foreach ($i in $results) {
         if (ServicePathVulnerable($i.PathName)) {
             $ToPrint = $i | select-object Name,PathName
