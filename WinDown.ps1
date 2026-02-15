@@ -117,7 +117,7 @@ function LocalUser {
 
 
 function InterestingFiles {
-	$results = try { Get-ChildItem -Path C:\ -Include *.kdbx, *.txt, *.ini, toml-3.8.3.jar, *.log, local.txt, proof.txt, flag.txt, user.txt, root.txt *.rsa, *.config -File -Recurse -ErrorAction SilentlyContinue | Select-string -Pattern 'password','passwd','pwd', 'pass', 'NTLM', 'Ticket' -SimpleMatch | Select-Object Path,Line } catch {Write-Error "Error Occurred When Executing command"}
+	$results = try { Get-ChildItem -Path C:\ -Include *.kdbx, *.txt, *.ini, toml-3.8.3.jar, *.log, local.txt, proof.txt, flag.txt, user.txt, root.txt *.rsa, *.config, *.xml -File -Recurse -ErrorAction SilentlyContinue | Select-string -Pattern 'password','passwd','pwd', 'pass', 'NTLM', 'Ticket' -SimpleMatch | Select-Object Path,Line } catch {Write-Error "Error Occurred When Executing command"}
 	return $results
 	}
 
